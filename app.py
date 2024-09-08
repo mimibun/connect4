@@ -115,11 +115,11 @@ def DeterminePlayer():
 
 def PromptPlayer():
     """Prompts player and catches wrong inputs"""
-    validChoices = [1, 2, 3, 4, 5, 6, 7]
+    VALID_CHOICES = [1, 2, 3, 4, 5, 6, 7]
 
     while (True):
         choice = input("Please select a column! 1 - 7: ")
-        if int(choice) in validChoices:
+        if int(choice) in VALID_CHOICES:
             return int(choice) - 1
     
 

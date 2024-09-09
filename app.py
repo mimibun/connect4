@@ -130,13 +130,14 @@ def PromptPlayer():
             continue
     
 
-def PlacePiece(matrix, column, player):
+def PlacePiece(matrix, player):
     """Places piece into correct column"""
+    choice = PromptPlayer()
     newMatrix = matrix.copy()
 
     for row in newMatrix:
-        if row[column] == 0:
-            row[column] = player
+        if row[choice] == 0:
+            row[choice] = player
             break
     return newMatrix
 
@@ -172,11 +173,10 @@ playMatrix = EMPTY_MATRIX.copy()
 while(True):
     PrintMatrix(playMatrix)
 
-    verdict = WinnerCheck(playMatrix)
+    hasWinner = WinnerCheck(playMatrix)
 
-    if verdict == 0:
-        choice = PromptPlayer()
-        playMatrix = PlacePiece(playMatrix, choice, DeterminePlayer())
+    if hasWinner == 0:
+        playMatrix = PlacePiece(playMatrix, DeterminePlayer())
     else:
-        print(WinnerAnnouncement(verdict))
+        print(WinnerAnnouncement(hasWinner))
         break

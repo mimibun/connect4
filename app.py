@@ -157,9 +157,7 @@ def ConvertZero(num):
         return num
     
 
-playMatrix = EMPTY_MATRIX.copy()
-
-while(True):
+def PrintMatrix(matrix):
     os.system("cls")
     print(" 1  2  3  4  5  6  7")
     print(" v  v  v  v  v  v  v")
@@ -167,6 +165,12 @@ while(True):
         for element in row:
             print(f" {ConvertZero(element)} ", end="")
         print("")
+    
+
+playMatrix = EMPTY_MATRIX.copy()
+
+while(True):
+    PrintMatrix(playMatrix)
 
     verdict = WinnerCheck(playMatrix)
 

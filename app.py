@@ -162,7 +162,7 @@ def PrintMatrix(matrix):
     os.system("cls")
     print(" 1  2  3  4  5  6  7")
     print(" v  v  v  v  v  v  v")
-    for row in reversed(playMatrix):
+    for row in reversed(matrix):
         for element in row:
             print(f" {ConvertZero(element)} ", end="")
         print("")

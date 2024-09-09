@@ -119,9 +119,17 @@ def PromptPlayer():
 
     while (True):
         choice = input("Please select a column! 1 - 7: ")
-        if type(choice) == int:
-            if choice in VALID_CHOICES:
-                return int(choice) - 1
+        print(choice)
+        try:
+            choice = int(choice)
+        except:
+            continue
+        
+        if choice in VALID_CHOICES:
+            print(choice)
+            return int(choice) - 1
+        else: 
+            continue
     
 
 def PlacePiece(matrix, column, player):

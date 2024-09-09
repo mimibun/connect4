@@ -107,11 +107,11 @@ def DeterminePlayer():
     """Flip-flop to the players take turns"""
     global i
     if i % 2 == 0:
-        piece = 1
+        i += 1
+        return 1
     else:
-        piece = 2
-    i += 1
-    return piece
+        i += 1
+        return 2
 
 def PromptPlayer():
     """Prompts player and catches wrong inputs"""

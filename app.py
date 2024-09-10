@@ -1,29 +1,31 @@
 import os
 
-EMPTY_MATRIX = [[0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0]]
+matrix = list[list[int | str]]
+
+EMPTY_MATRIX: matrix = [[0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0]]
 
 i = 0
 
-def Check4InList(array):
+def Check4InList(list: list) -> int:
     """Looks for exactly 4 same elements in a list"""
     ONE_PATTERN, TWO_PATTERN = [1, 1, 1, 1], [2, 2, 2, 2]
 
-    for i in range(len(array) - 4 + 1):
-        if array[i:i+4] == ONE_PATTERN:
+    for i in range(len(list) - 4 + 1):
+        if list[i:i+4] == ONE_PATTERN:
             return 1
-        elif array[i:i+4] == TWO_PATTERN:
+        elif list[i:i+4] == TWO_PATTERN:
             return 2
         else:
             continue
     return 0
 
 
-def RotateMatrix(matrix):
+def RotateMatrix(matrix: matrix) -> matrix:
     """Roates matrix by 90"""
     rows, cols = len(matrix), len(matrix[0])
     rotatedMatrix = [[0] * rows for _ in range(cols)]
@@ -34,7 +36,7 @@ def RotateMatrix(matrix):
     return rotatedMatrix
 
 
-def DiagonalLists(matrix):
+def DiagonalLists(matrix: matrix) -> matrix:
     """Remaps diagnoals onto a list of lists"""
     m = matrix
     diags = [
@@ -54,7 +56,7 @@ def DiagonalLists(matrix):
     return diags
 
 
-def CheckRows(matrix):
+def CheckRows(matrix: matrix) -> matrix | int:
     """Looks for winner in all rows"""
     for list in matrix:
         checkedList = Check4InList(list)
@@ -65,7 +67,7 @@ def CheckRows(matrix):
     return 0
 
 
-def CheckCols(matrix):
+def CheckCols(matrix: matrix) -> matrix | int:
     """Looks for winner in all columns"""
     rotatedMatrix = RotateMatrix(matrix)
 
@@ -78,7 +80,7 @@ def CheckCols(matrix):
     return 0
 
 
-def CheckDiags(matrix):
+def CheckDiags(matrix: matrix) -> matrix | int:
     """Looks for winner in all diagnoals"""
     diags = DiagonalLists(matrix)
 
@@ -91,7 +93,7 @@ def CheckDiags(matrix):
     return 0
 
 
-def WinnerCheck(matrix):
+def WinnerCheck(matrix: matrix) -> matrix | int:
     """Looks for Winner"""
     if CheckRows(matrix) != 0:
         return CheckRows(matrix)
@@ -103,7 +105,7 @@ def WinnerCheck(matrix):
         return 0
     
 
-def DeterminePlayer():
+def DeterminePlayer() -> int:
     """Flip-flop to the players take turns"""
     global i
     if i % 2 == 0:
@@ -113,7 +115,7 @@ def DeterminePlayer():
         i += 1
         return 2
 
-def PromptPlayer():
+def PromptPlayer() -> int:
     """Prompts player and catches wrong inputs"""
     VALID_CHOICES = [1, 2, 3, 4, 5, 6, 7]
 
@@ -130,7 +132,7 @@ def PromptPlayer():
             continue
     
 
-def PlacePiece(matrix, player):
+def PlacePiece(matrix: matrix, player: int) -> matrix:
     """Places piece into correct column"""
     choice = PromptPlayer()
     newMatrix = matrix.copy()
@@ -142,23 +144,22 @@ def PlacePiece(matrix, player):
     return newMatrix
 
 
-def WinnerAnnouncement(verdict):
+def WinnerAnnouncement(verdict: int) -> str:
     """Gets verdict from WinnerCheck and chooses what to say"""
     match verdict:
-        case 0: pass
         case 1: return "Player 1 wins!"
         case 2: return "Player 2 wins!"
 
 
-def ConvertZero(num):
-    """Literally converts 0 to _"""
+def ConvertZero(num: str | int) -> str | int:
+    """Literally converts 0 to _ to prettify field"""
     if num == 0:
         return "_"
     else:
         return num
     
 
-def PrintMatrix(matrix):
+def PrintMatrix(matrix: matrix) -> None:
     os.system("cls")
     print(" 1  2  3  4  5  6  7")
     print(" v  v  v  v  v  v  v")
@@ -168,15 +169,15 @@ def PrintMatrix(matrix):
         print("")
     
 
-playMatrix = EMPTY_MATRIX.copy()
+playMatrix: matrix = EMPTY_MATRIX.copy()
 
 while(True):
     PrintMatrix(playMatrix)
 
-    hasWinner = WinnerCheck(playMatrix)
+    hasWinner: int = WinnerCheck(playMatrix)
 
-    if hasWinner == 0:
-        playMatrix = PlacePiece(playMatrix, DeterminePlayer())
-    else:
+    if hasWinner != 0:
         print(WinnerAnnouncement(hasWinner))
         break
+    else:
+        playMatrix = PlacePiece(playMatrix, DeterminePlayer())

@@ -151,7 +151,7 @@ def WinnerAnnouncement(verdict: int) -> str:
         case 2: return "Player 2 wins!"
 
 
-def ConvertZero(num: str | int) -> str | int:
+def ConvertZero(num: int) -> str | int:
     """Literally converts 0 to _ to prettify field"""
     if num == 0:
         return "_"

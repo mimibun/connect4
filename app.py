@@ -144,11 +144,12 @@ def PlacePiece(matrix: matrix, player: int) -> matrix:
     return newMatrix
 
 
-def WinnerAnnouncement(verdict: int) -> str:
+def WinnerAnnouncement(verdict: int) -> str | None:
     """Gets verdict from WinnerCheck and chooses what to say"""
     match verdict:
         case 1: return "Player 1 wins!"
         case 2: return "Player 2 wins!"
+        case _: return None
 
 
 def ConvertZero(num: int) -> str | int:
